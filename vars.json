@@ -1,0 +1,17 @@
+{
+    "aws": {
+        "region": "eu-west-1",
+        "profile": "admin-user",
+        "credentials_file": "~/.aws/credentials"
+    },
+    "lightsail": {
+        "instance_name": {
+            "zone": "eu-west-1a",
+            "keypair_name": "aws-keypair",
+            "blueprint_id": "debian_10",
+            "bundle_id": "nano_2_0",
+            "static_ip": true,
+            "init_script": "init_script.sh"
+        }
+    }
+}
