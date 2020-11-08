@@ -2,7 +2,7 @@
 
 From [campisano.org/Aws_terraform](http://www.campisano.org/wiki/en/Aws_terraform#Use_AWS_lightsail_simplified_service)
 
-This project shows a minimalistic AWS Lightsail module configured with a custom vars.json variable to setup a cheap infrastrucutre in the AWS cloud.
+This project shows how to use a minimalistic AWS Lightsail module (configurable with a custom vars.json file) to setup a cheap infrastrucutre in the AWS cloud.
 
 
 
@@ -133,12 +133,23 @@ Example
 
 ![make destroy image](/docs/README.md/make_destroy.png?raw=true "make destroy command")
 
+* Login
+
+You can login in your virtual machine with the command `ssh -i ~/.ssh/aws-keypair admin@111.22.33.44`. Remember to replace `111.22.33.44` with the static ip of your new machine. It is shown in the output of the `make apply` command.
+
 
 
 Customize
 ---------
 
-It is possible to create several instance simply configuring the `vars.json` file. This is an example that creates an instance with an associated static IP and two instances without static IPs:
+With this module it is possible to create several virtual machines. Each machine can be configured with or without a static ip resoure, and an initial script can be configured to customize the O.S. itself so that software can be added or removed programmatically. Such configuration can be done modifying the `vars.json` file.
+
+The following code is a sample of a `vars.json` to:
+* configure the aws provider;
+* configure the lightsail module that creates:
+  * a machine in the A zone with an initial script and an associated static IP;
+  * a machine in the A zone without initial script or static IP;
+  * a machine in the C zone without initial script or static IP.
 
 ```
 {
