@@ -25,3 +25,11 @@ resource "aws_lightsail_static_ip_attachment" "static_ip_att" {
   static_ip_name = aws_lightsail_static_ip.static_ip[0].name
   instance_name  = aws_lightsail_instance.instance.name
 }
+
+resource "null_resource" "firewall" {
+  count = var.public_ports_rules != null ? 1 : 0
+
+  provisioner "local-exec" {
+    command = "aws --profile ${var.aws_profile} lightsail put-instance-public-ports --instance-name=${aws_lightsail_instance.instance.name} --port-infos ${var.public_ports_rules}"
+  }
+}
