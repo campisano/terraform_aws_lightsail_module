@@ -59,7 +59,7 @@ NOTE: keep the "Access key ID" and the "Secret access key"
 * The AWS cli command. To install, see [the official doc](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) or do the following:
 
 ```
-VERSION="2.0.61"
+VERSION="2.1.26"
 cd /tmp
 curl -kLO "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${VERSION}.zip"
 unzip "awscli-exe-linux-x86_64-${VERSION}.zip"
@@ -89,7 +89,7 @@ chmod 400 ~/.ssh/aws-keypair
 * The Terraform command. To install, see [the official doc](https://www.terraform.io/downloads.html) or do the followint:
 
 ```
-VERSION="0.13.5"
+VERSION="0.14.6"
 cd /tmp
 curl -kLO "https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip"
 unzip "terraform_${VERSION}_linux_amd64.zip"
@@ -97,7 +97,7 @@ mv -f terraform ~/bin
 rm -f "terraform_${VERSION}_linux_amd64.zip"
 ```
 
-* (Optional) Install [Make](https://www.gnu.org/software/make/). This tool is used to run predefined terraform commands.
+* Install [Make](https://www.gnu.org/software/make/). This tool is used to run predefined terraform commands.
 
 
 
