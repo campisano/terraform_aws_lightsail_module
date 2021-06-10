@@ -11,18 +11,18 @@ Project Structure
 
 ```
 ./
-├── modules/lightsail           (lightsail files)
+├── modules/lightsail           (lightsail module files)
 │   ├── input.ts                  (declare module input vars)
 │   ├── main.ts                   (module source file for lightsail resources)
 │   └── output.ts                 (declare module output vars)
 │
-├── init_script.sh              (make file used to simplify build process)
+├── init_script.sh              (optional script to run at first boot)
 ├── input.ts                    (declare main input vars)
 ├── main.ts                     (main source file to setup resources)
 ├── output.ts                   (declare main output vars)
 ├── provider.tf                 (aws provider configs)
 ├── terraform.tf                (terraform configs)
-├── Makefile                    (make file used to setup useful commands)
+├── Makefile                    (make file with a set of useful commands)
 └── vars.json                   (json file to define custom variables)
 ```
 
@@ -86,18 +86,9 @@ ssh-keygen -q -t rsa -b 2048 -N '' -f ~/.ssh/aws-keypair
 chmod 400 ~/.ssh/aws-keypair
 ```
 
-* The Terraform command. To install, see [the official doc](https://www.terraform.io/downloads.html) or do the followint:
+* The Terraform command. To install, see [the official doc](https://www.terraform.io/downloads.html).
 
-```
-VERSION="0.14.6"
-cd /tmp
-curl -kLO "https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip"
-unzip "terraform_${VERSION}_linux_amd64.zip"
-mv -f terraform ~/bin
-rm -f "terraform_${VERSION}_linux_amd64.zip"
-```
-
-* Install [Make](https://www.gnu.org/software/make/). This tool is used to run predefined terraform commands.
+* Install [Make](https://www.gnu.org/software/make/). This tool is used to run predefined Terraform commands.
 
 
 
@@ -108,7 +99,7 @@ rm -f "terraform_${VERSION}_linux_amd64.zip"
 Prepare
 -------
 
-Use `make init` command to prepare terraform local data and to download the AWS provider driver.
+Use `make init` command to prepare Terraform local data and to download the AWS provider driver.
 
 Create
 ------
@@ -159,7 +150,7 @@ The following code is a sample of a `vars.json` to:
         "credentials_file": "~/.aws/credentials"
     },
     "lightsail": {
-        "instance_public": {
+        "my_public_instance_name_1": {
             "zone": "eu-west-1a",
             "keypair_name": "aws-keypair",
             "blueprint_id": "debian_10",
@@ -168,13 +159,13 @@ The following code is a sample of a `vars.json` to:
             "init_script": "init_script.sh",
             "public_ports_rules": "fromPort=22,toPort=22,protocol=tcp fromPort=80,toPort=80,protocol=tcp fromPort=8080,toPort=8080,protocol=tcp"
         },
-        "instance_private_a": {
+        "my_private_instance_name_a": {
             "zone": "eu-west-1a",
             "keypair_name": "aws-keypair",
             "blueprint_id": "debian_10",
             "bundle_id": "nano_2_0"
         },
-        "instance_private_c": {
+        "my_private_instance_name_c": {
             "zone": "eu-west-1c",
             "keypair_name": "aws-keypair",
             "blueprint_id": "debian_10",
