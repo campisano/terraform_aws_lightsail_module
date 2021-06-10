@@ -1,6 +1,6 @@
 # Terraform minimalistic module for AWS Lightsail
 
-From [campisano.org/Aws_terraform](http://www.campisano.org/wiki/en/Aws_terraform#Use_AWS_lightsail_simplified_service)
+From [campisano.org/Aws (Cloud)](http://www.campisano.org/wiki/en/Aws_(Cloud)#Use_AWS_lightsail_simplified_service)
 
 This project shows how to use a minimalistic AWS Lightsail module (configurable with a custom vars.json file) to setup a cheap infrastrucutre in the AWS cloud.
 
