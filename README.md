@@ -56,27 +56,12 @@ go back to https://console.aws.amazon.com/iam/
 NOTE: keep the "Access key ID" and the "Secret access key"
 ```
 
-* The AWS cli command. To install, see [the official doc](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) or do the following:
+* Configure your credentials. See [the official doc](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) or do the following:
 
 ```
-VERSION="2.1.26"
-cd /tmp
-curl -kLO "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${VERSION}.zip"
-unzip "awscli-exe-linux-x86_64-${VERSION}.zip"
-./aws/install -u -i ~/.local/aws -b "${HOME}"/bin
-rm -rf aws "awscli-exe-linux-x86_64-${VERSION}.zip"
-```
-
-* Configure your credentials. See [the official doc](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) or do the following:
-
-```
-# NOTE: for this example we will use "eu-west-1" region
-aws --profile admin-user configure
-# put the "Access key ID"
-# put the "Secret access key"
-# use "eu-west-1"
-# use "json"
-aws --profile admin-user iam list-users
+export AWS_ACCESS_KEY_ID=<YOUR_ACCESS_KEY_ID>
+export AWS_SECRET_ACCESS_KEY=<YOUR_SECRET_ACCESS_KEY>
+export AWS_DEFAULT_REGION=<YOUR_REGION> # this example uses eu-west-1
 ```
 
 * An SSH Key Pair. To create, do the following:
@@ -85,6 +70,8 @@ aws --profile admin-user iam list-users
 ssh-keygen -q -t rsa -b 2048 -N '' -f ~/.ssh/aws-keypair
 chmod 400 ~/.ssh/aws-keypair
 ```
+
+* Upload you public key in AWS Lightsail [Account Keys section](https://lightsail.aws.amazon.com/ls/webapp/account/keys), remember to upload in the same region used before.
 
 * The Terraform command. To install, see [the official doc](https://www.terraform.io/downloads.html).
 
@@ -144,12 +131,12 @@ The following code is a sample of a `vars.json` to:
 
 ```
 {
-    "aws": {
+    "aws_provider": {
         "region": "eu-west-1",
         "profile": "admin-user",
         "credentials_file": "~/.aws/credentials"
     },
-    "lightsail": {
+    "lightsail_module": {
         "my_public_instance_name_1": {
             "zone": "eu-west-1a",
             "keypair_name": "aws-keypair",

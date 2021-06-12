@@ -1,7 +1,7 @@
 data "template_file" "init_script" {
-  count = var.init_script != null ? 1 : 0
+  count = var.init_script_path != null ? 1 : 0
 
-  template = file(var.init_script)
+  template = file(var.init_script_path)
 }
 
 resource "aws_lightsail_instance" "instance" {
@@ -10,7 +10,7 @@ resource "aws_lightsail_instance" "instance" {
   key_pair_name     = var.keypair_name
   blueprint_id      = var.blueprint_id
   bundle_id         = var.bundle_id
-  user_data         = var.init_script != null ? data.template_file.init_script[0].rendered : null
+  user_data         = var.init_script_path != null ? data.template_file.init_script[0].rendered : null
 }
 
 resource "aws_lightsail_static_ip" "static_ip" {

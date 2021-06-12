@@ -1,2 +1,2 @@
-variable "aws"       { type = map(string) }
-variable "lightsail" { type = map(any) }
+variable "aws_provider"     { type = map(string) }
+variable "lightsail_module" { type = map(any) }
