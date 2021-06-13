@@ -2,7 +2,7 @@
 
 From [campisano.org/Aws (Cloud)](http://www.campisano.org/wiki/en/Aws_(Cloud)#Use_AWS_lightsail_simplified_service)
 
-This project shows how to use a minimalistic AWS Lightsail module (configurable with a custom vars.json file) to setup a cheap infrastrucutre in the AWS cloud.
+This project shows how to use a minimalistic Terraform module (configurable with a custom vars.json file) to create a [Lightsail cheap infrastrucutre](https://aws.amazon.com/lightsail/) with a free Virtual Private Server (VPS) in the Amazon Web Services (AWS).
 
 
 
@@ -11,17 +11,17 @@ Project Structure
 
 ```
 ./
-├── modules/lightsail           (lightsail module files)
-│   ├── input.ts                  (declare module input vars)
-│   ├── main.ts                   (module source file for lightsail resources)
-│   └── output.ts                 (declare module output vars)
+├── modules/lightsail           (module for instance provision)
+│   ├── input.ts                  (module input vars)
+│   ├── main.ts                   (module resources)
+│   └── output.ts                 (module output vars)
 │
 ├── init_script.sh              (optional script to run at first boot)
 ├── input.ts                    (declare main input vars)
 ├── main.ts                     (main source file to setup resources)
 ├── output.ts                   (declare main output vars)
-├── provider.tf                 (aws provider configs)
-├── terraform.tf                (terraform configs)
+├── provider.tf                 (provider configs)
+├── versions.tf                 (terraform versions configs)
 ├── Makefile                    (make file with a set of useful commands)
 └── vars.json                   (json file to define custom variables)
 ```
@@ -64,7 +64,7 @@ export AWS_SECRET_ACCESS_KEY=<YOUR_SECRET_ACCESS_KEY>
 export AWS_DEFAULT_REGION=<YOUR_REGION> # this example uses eu-west-1
 ```
 
-* An SSH Key Pair. To create, do the following:
+* An SSH Key Pair to have access to the VPS. To create a new keypair, do the following:
 
 ```
 ssh-keygen -q -t rsa -b 2048 -N '' -f ~/.ssh/aws-keypair
@@ -76,6 +76,8 @@ chmod 400 ~/.ssh/aws-keypair
 * The Terraform command. To install, see [the official doc](https://www.terraform.io/downloads.html).
 
 * Install [Make](https://www.gnu.org/software/make/). This tool is used to run predefined Terraform commands.
+
+* Choose a O.S. image to use in your VPSs. A list is available [here](https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image). In this example we will use `debian_10`.
 
 
 
@@ -113,16 +115,16 @@ Example
 
 * Login
 
-You can login in your virtual machine with the command `ssh -i ~/.ssh/aws-keypair admin@111.22.33.44`. Remember to replace `111.22.33.44` with the static ip of your new machine. It is shown in the output of the `make apply` command.
+You can login in your VPS with the command `ssh -i ~/.ssh/aws-keypair admin@111.22.33.44`. Remember to replace `111.22.33.44` with the static ip of your new machine. It is shown in the output of the `make apply` command.
 
 
 
 Customize
 ---------
 
-With this module it is possible to create several virtual machines. Each machine can be configured with or without a static ip resoure, and an initial script can be configured to customize the O.S. itself so that software can be added or removed programmatically. Such configuration can be done modifying the `vars.json` file.
+This project can create several VPSs. Each machine can be configured with or without a static ip resoure, and an initial script can be defined to customize the machine O.S. so that software can be added or removed programmatically. This is configurable modifying the variables defined in the `vars.json` file.
 
-The following code is a sample of a `vars.json` to:
+The following snippet is a sample of a `vars.json` to:
 * configure the aws provider;
 * configure the lightsail module that creates:
   * a machine in the A zone with an initial script and an associated static IP;
