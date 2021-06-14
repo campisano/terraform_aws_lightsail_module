@@ -64,6 +64,8 @@ export AWS_SECRET_ACCESS_KEY=<YOUR_SECRET_ACCESS_KEY>
 export AWS_DEFAULT_REGION=<YOUR_REGION> # this example uses eu-west-1
 ```
 
+* Choose a O.S. image to use in your VPSs. A list is available [here](https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image). In this example we will use `debian_10`.
+
 * An SSH Key Pair to have access to the VPS. To create a new keypair, do the following:
 
 ```
@@ -76,8 +78,6 @@ chmod 400 ~/.ssh/aws-keypair
 * The Terraform command. To install, see [the official doc](https://www.terraform.io/downloads.html).
 
 * Install [Make](https://www.gnu.org/software/make/). This tool is used to run predefined Terraform commands.
-
-* Choose a O.S. image to use in your VPSs. A list is available [here](https://lightsail.aws.amazon.com/ls/docs/en_us/articles/compare-options-choose-lightsail-instance-image). In this example we will use `debian_10`.
 
 
 
